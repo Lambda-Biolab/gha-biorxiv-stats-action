@@ -32,10 +32,12 @@ runs:
 
     - name: Setup uv
       uses: astral-sh/setup-uv@v6
+      env:
+        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
       with:
         enable-cache: true
 
-    - name: Install dependencies and run
+    - name: Fetch and write bioRxiv stats
       shell: bash
       env:
         OUT_DIR: ${{ inputs.OUT_DIR }}
@@ -86,3 +88,4 @@ runs:
         gh api "repos/$REPO/pulls/$PR_NUM/merge" -X PUT \
           -f merge_method=squash \
           -f commit_title="chore: update $OUT_DIR"
+        gh api "repos/$REPO/git/refs/heads/$BRANCH" -X DELETE || true
