@@ -34,7 +34,7 @@ Logs daily stats of papers submitted to [biorxiv.org](https://www.biorxiv.org/).
 ## Inputs
 
 | Name | Required | Default | Description |
-|------|----------|---------|-------------|
+| ---- | -------- | ------- | ----------- |
 | `OUT_DIR` | No | `./data/biorxiv` | Directory to write CSV output files. Convention: `./data/<server>` so multiple servers can coexist. |
 | `DAYS` | No | `1` | Number of days back to fetch |
 | `CATEGORIES` | No | _(8 Lambda-Biolab categories)_ | Comma-separated bioRxiv categories to keep (case-insensitive). Empty keeps all. Filter is applied client-side — the bioRxiv `/details/` API has no server-side category filter. Default: `bioinformatics,bioengineering,microbiology,biochemistry,biophysics,pharmacology and toxicology,genomics,synthetic biology` |
