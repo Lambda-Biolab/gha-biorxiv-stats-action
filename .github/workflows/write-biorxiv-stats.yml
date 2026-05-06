@@ -16,7 +16,7 @@ jobs:
         with:
           OUT_DIR: "./data"
           DAYS: ${{ vars.DAYS || '7' }}
-          CATEGORIES: ${{ vars.CATEGORIES || '' }}
+          CATEGORIES: ${{ vars.CATEGORIES || 'bioinformatics,bioengineering,microbiology,biochemistry,biophysics,pharmacology and toxicology,genomics,synthetic biology' }}
           SERVER: ${{ vars.SERVER || 'biorxiv' }}
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ...

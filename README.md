@@ -26,7 +26,7 @@ Logs daily stats of papers submitted to [biorxiv.org](https://www.biorxiv.org/).
   with:
     OUT_DIR: './data'
     DAYS: '1'
-    CATEGORIES: 'neuroscience'
+    CATEGORIES: 'bioinformatics,microbiology'
     SERVER: 'biorxiv'
     TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -37,7 +37,7 @@ Logs daily stats of papers submitted to [biorxiv.org](https://www.biorxiv.org/).
 |------|----------|---------|-------------|
 | `OUT_DIR` | No | `./data` | Directory to write CSV output files |
 | `DAYS` | No | `1` | Number of days back to fetch |
-| `CATEGORIES` | No | _(empty)_ | bioRxiv category filter (e.g. neuroscience). Empty for all |
+| `CATEGORIES` | No | _(8 Lambda-Biolab categories)_ | Comma-separated bioRxiv categories to keep (case-insensitive). Empty keeps all. Filter is applied client-side — the bioRxiv `/details/` API has no server-side category filter. Default: `bioinformatics,bioengineering,microbiology,biochemistry,biophysics,pharmacology and toxicology,genomics,synthetic biology` |
 | `SERVER` | No | `biorxiv` | API server: `biorxiv` or `medrxiv` |
 | `TOKEN` | No | `${{ github.token }}` | GitHub token for pushing changes |
 

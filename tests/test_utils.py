@@ -88,6 +88,53 @@ def test_parse_biorxiv_json():
     assert first[2] == "10.1101/2024.01.15.1234"
 
 
+def test_parse_biorxiv_json_filters_by_category():
+    """Entries outside the categories set are dropped (case-insensitive)."""
+    data = json.dumps(
+        {
+            "messages": [{"status": "ok", "total": 3, "count": 3}],
+            "collection": [
+                {
+                    "doi": "10.1101/a",
+                    "version": "1",
+                    "category": "Bioinformatics",
+                    "title": "Keep",
+                    "authors": "A",
+                    "date": "2024-01-15",
+                },
+                {
+                    "doi": "10.1101/b",
+                    "version": "1",
+                    "category": "neuroscience",
+                    "title": "Drop",
+                    "authors": "B",
+                    "date": "2024-01-15",
+                },
+                {
+                    "doi": "10.1101/c",
+                    "version": "1",
+                    "category": "microbiology",
+                    "title": "Keep",
+                    "authors": "C",
+                    "date": "2024-01-15",
+                },
+            ],
+        }
+    ).encode()
+    result = parse_biorxiv_json(data, {"bioinformatics", "microbiology"})
+    rows = result[(2024, 3)]
+    dois = {row[2] for row in rows}
+    assert dois == {"10.1101/a", "10.1101/c"}
+
+
+def test_parse_biorxiv_json_no_filter_keeps_all():
+    """Empty/None category filter keeps every entry."""
+    result_none = parse_biorxiv_json(FIXTURE_JSON, None)
+    result_empty = parse_biorxiv_json(FIXTURE_JSON, set())
+    assert len(result_none[(2024, 3)]) == 2
+    assert len(result_empty[(2024, 3)]) == 2
+
+
 def test_pagination_detection():
     """Detects when total > count means more pages."""
     assert needs_pagination([{"total": 150, "count": 100}]) is True

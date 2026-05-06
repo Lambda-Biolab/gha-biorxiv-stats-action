@@ -35,15 +35,22 @@ def get_api_response(url: str, max_retries: int = 3, backoff_base: float = 2.0) 
                 ) from None
 
 
-def parse_biorxiv_json(data: bytes) -> dict:
+def parse_biorxiv_json(data: bytes, categories: set | None = None) -> dict:
     """Parse bioRxiv JSON bytes, return dict keyed by (year, week) tuple.
 
     Each value is a list of rows:
     [Date, ISOWeek, DOI, Version, Category, Title, Authors]
+
+    If ``categories`` is a non-empty set, entries whose category is not in the
+    set are discarded (case-insensitive match on the bioRxiv category string).
     """
     payload = json.loads(data)
     out: dict = {}
+    cat_filter = {c.strip().lower() for c in categories} if categories else None
     for entry in payload.get("collection", []):
+        cat = entry.get("category", "")
+        if cat_filter and cat.strip().lower() not in cat_filter:
+            continue
         pub_date = entry["date"]  # YYYY-MM-DD
         iso = date.fromisoformat(pub_date).isocalendar()
         key = (iso[0], iso[1])  # (year, week)
@@ -55,7 +62,7 @@ def parse_biorxiv_json(data: bytes) -> dict:
                 iso[1],
                 entry.get("doi", ""),
                 entry.get("version", ""),
-                entry.get("category", ""),
+                cat,
                 entry.get("title", ""),
                 entry.get("authors", ""),
             ]
