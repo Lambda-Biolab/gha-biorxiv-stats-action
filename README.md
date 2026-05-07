@@ -41,7 +41,8 @@ output directory under `data/<server>/`.
     TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-Multi-server matrix:
+<details>
+<summary>Multi-server matrix</summary>
 
 ```yaml
 strategy:
@@ -60,6 +61,8 @@ steps:
       CATEGORIES: ${{ matrix.categories }}
       TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
+
+</details>
 
 ## Inputs
 
@@ -85,11 +88,14 @@ Row shape: `Date, ISOWeek, DOI, Version, Category, Title, Authors` (UTF-8 CSV).
 
 ## API
 
-Data sourced from
-`https://api.biorxiv.org/details/{server}/{date1}/{date2}/{cursor}/json`.
-chemRxiv and psyArXiv use different APIs and are tracked separately
-([upstream issue #69](https://github.com/qte77/gha-biorxiv-stats-action/issues/69),
-[upstream issue #70](https://github.com/qte77/gha-biorxiv-stats-action/issues/70)).
+Data sourced from:
+
+- bioRxiv: `https://api.biorxiv.org/details/biorxiv/{date1}/{date2}/{cursor}/json`
+- medRxiv: `https://api.biorxiv.org/details/medrxiv/{date1}/{date2}/{cursor}/json`
+
+Both share the same CSHL endpoint, distinguished by the `{server}` path
+segment. chemRxiv and psyArXiv use different APIs and are not yet
+supported.
 
 ## License
 
