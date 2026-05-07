@@ -7,14 +7,20 @@ branding:
   color: "green"
 inputs:
   OUT_DIR:
-    description: "Directory to write CSV output files."
-    default: "./data"
+    description: >-
+      Directory to write CSV output files. Convention: ./data/<server>
+      (e.g. ./data/biorxiv) so multiple servers can coexist without colliding.
+    default: "./data/biorxiv"
   DAYS:
     description: "Number of days back to fetch."
     default: "1"
   CATEGORIES:
-    description: "bioRxiv category filter (e.g. neuroscience). Empty for all."
-    default: ""
+    description: >-
+      Comma-separated bioRxiv categories to keep (case-insensitive). Empty
+      keeps all. Filtering is applied client-side after fetching the full
+      date range, since the bioRxiv /details/ API has no server-side
+      category filter.
+    default: "bioinformatics,bioengineering,microbiology,biochemistry,biophysics,pharmacology and toxicology,genomics,synthetic biology"
   SERVER:
     description: "API server: biorxiv or medrxiv."
     default: "biorxiv"
@@ -25,13 +31,13 @@ runs:
   using: "composite"
   steps:
     - name: Checkout repository
-      uses: actions/checkout@v6
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       with:
         fetch-depth: 1
         token: ${{ inputs.TOKEN || github.token }}
 
     - name: Setup uv
-      uses: astral-sh/setup-uv@v7
+      uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7.6.0
       env:
         FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
       with:
