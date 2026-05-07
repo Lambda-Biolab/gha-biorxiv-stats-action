@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Renamed
+
+- Repo `gha-biorxiv-stats-action` → `gha-rxiv-stats-action` to reflect
+  multi-server scope. GitHub auto-redirects old URLs; in-repo
+  references (README badges, Usage examples, action.yaml `name`)
+  updated (#19).
+
 ### Added
 
 - Client-side `CATEGORIES` filter: comma-separated set, case-insensitive,
@@ -28,6 +35,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Project-scoped Claude Code plugins via `.claude/settings.json` (#2)
 - Issue #7: ingestion recipes for consumer repos + `gh models` LLM
   pipeline (relevance filter + abstract extraction)
+- `data/biorxiv/.gitkeep` mirroring `data/medrxiv/.gitkeep` (#12, later
+  removed in #18 in favor of a single `data/.gitkeep`)
+- `Lint MD and Links` workflow now starts cleanly — caller workflow
+  grants the `issues: write` permission the reusable workflow's
+  `notify` job requires (#14)
+- README inline `strategy.matrix` snippet wrapped in `<details>` for
+  compact reading (#15, #16)
 
 ### Changed
 
@@ -49,6 +63,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `e6ecdc3` (1.3.0) (#1, #6)
 - Expanded `.gitignore` (Python, IDE, secrets, Claude per-user,
   OS) (#5)
+- README, CHANGELOG, LICENSE refreshed to current state; LICENSE now
+  byte-matches the canonical Apache-2.0 text with copyright line
+  `Copyright 2026 Lambda-Biolab` (#13)
+- README header trimmed (no static social-preview image; GitHub's
+  auto-generated open-graph card carries org branding) (#15, #17)
+- API section lists both bioRxiv and medRxiv URLs explicitly (#17)
+- chemRxiv/psyArXiv mentions removed across README, categories doc,
+  and CHANGELOG entry (data preserved inline in upstream issues
+  qte77/gha-rxiv-stats-action#69 and #70) (#17, #18)
 
 ### Fixed
 

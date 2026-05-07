@@ -1,4 +1,4 @@
-# gha-biorxiv-stats-action
+# gha-rxiv-stats-action
 
 Weekly stats of papers submitted to [bioRxiv](https://www.biorxiv.org/) and
 [medRxiv](https://www.medrxiv.org/), filtered to a configurable category set
@@ -6,10 +6,10 @@ and written as deduplicated weekly CSV files.
 
 ![Version](https://img.shields.io/badge/version-0.1.0-8A2BE2)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
-[![Update rxiv stats](https://github.com/Lambda-Biolab/gha-biorxiv-stats-action/actions/workflows/write-rxiv-stats.yml/badge.svg)](https://github.com/Lambda-Biolab/gha-biorxiv-stats-action/actions/workflows/write-rxiv-stats.yml)
-[![CodeQL](https://github.com/Lambda-Biolab/gha-biorxiv-stats-action/actions/workflows/codeql.yml/badge.svg)](https://github.com/Lambda-Biolab/gha-biorxiv-stats-action/actions/workflows/codeql.yml)
-[![Lint](https://github.com/Lambda-Biolab/gha-biorxiv-stats-action/actions/workflows/ruff.yml/badge.svg)](https://github.com/Lambda-Biolab/gha-biorxiv-stats-action/actions/workflows/ruff.yml)
-[![Tests](https://github.com/Lambda-Biolab/gha-biorxiv-stats-action/actions/workflows/test.yml/badge.svg)](https://github.com/Lambda-Biolab/gha-biorxiv-stats-action/actions/workflows/test.yml)
+[![Update rxiv stats](https://github.com/Lambda-Biolab/gha-rxiv-stats-action/actions/workflows/write-rxiv-stats.yml/badge.svg)](https://github.com/Lambda-Biolab/gha-rxiv-stats-action/actions/workflows/write-rxiv-stats.yml)
+[![CodeQL](https://github.com/Lambda-Biolab/gha-rxiv-stats-action/actions/workflows/codeql.yml/badge.svg)](https://github.com/Lambda-Biolab/gha-rxiv-stats-action/actions/workflows/codeql.yml)
+[![Lint](https://github.com/Lambda-Biolab/gha-rxiv-stats-action/actions/workflows/ruff.yml/badge.svg)](https://github.com/Lambda-Biolab/gha-rxiv-stats-action/actions/workflows/ruff.yml)
+[![Tests](https://github.com/Lambda-Biolab/gha-rxiv-stats-action/actions/workflows/test.yml/badge.svg)](https://github.com/Lambda-Biolab/gha-rxiv-stats-action/actions/workflows/test.yml)
 
 ## What it does
 
@@ -32,7 +32,7 @@ output directory under `data/<server>/`.
 ## Usage
 
 ```yaml
-- uses: Lambda-Biolab/gha-biorxiv-stats-action@v0
+- uses: Lambda-Biolab/gha-rxiv-stats-action@v0
   with:
     OUT_DIR: "./data/biorxiv"
     DAYS: "7"
@@ -54,7 +54,7 @@ strategy:
       - server: medrxiv
         categories: "infectious diseases,genetic and genomic medicine"
 steps:
-  - uses: Lambda-Biolab/gha-biorxiv-stats-action@v0
+  - uses: Lambda-Biolab/gha-rxiv-stats-action@v0
     with:
       OUT_DIR: "./data/${{ matrix.server }}"
       SERVER: ${{ matrix.server }}
